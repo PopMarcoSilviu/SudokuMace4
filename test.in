@@ -1,0 +1,86 @@
+assign(domain_size,20). 
+assign(max_models,1).
+assign(max_seconds, 60).
+set(arithmetic).
+
+
+formulas(latin_square).
+	all x  all y1 all y2 (x<9 & y1 <9 & y2<9 -> (f(x,y1) = f(x,y2) -> y1 = y2)).
+	all x1 all x2 all y (x1<9 & x2 <9 & y <9 -> (f(x1,y) = f(x2,y) -> x1 = x2)).	
+	
+end_of_list.
+
+formulas(sudoku).
+	all x all y (x<9 & y<9 ->(f(x,y) < 9 )).
+	all x all y (x<9 & y<9 ->(color(x,y) < 9 )).
+	all x all y (x>=9 | y>=9  -> f(x,y) = 0).
+	all x all y (x>=9 | y>=9  -> color(x,y) = 0).		
+	SIZE = 3.
+	all x1 all y1 all x2 all y2 ((x1<9 & x2<9 & y1<9 & y2<9) -> ( color(x1,y1) = color(x2,y2) <-> (x1/SIZE = x2/SIZE) & (y1 /SIZE = y2 /SIZE))).     
+ 	all x1 all y1 all x2 all y2 ((x1<=8 & x2<=8 & y1<=8 & y2<=8 &  (x1!=x2| y1!=y2) & color(x1,y1) = color(x2,y2)  ) -> ( (f(x1,y1) != f(x2, 	y2 )  ) )).    
+
+end_of_list.
+
+formulas(color).
+	color(0,0) = 0.
+	color(0,3) = 1.
+	color(0,6) = 2.
+	color(3,0) = 3.
+	color(3,3) = 4.
+	color(3,6) = 5.
+	color(6,0) = 6.
+	color(6,3) = 7.
+	color(6,6) = 8.
+
+
+end_of_list.
+
+
+formulas(values_for_test).
+
+	
+	%column 0    column 1    column 2    column 3    column 4
+	%f(0,0) = 8. f(0,1) = 4. f(0,2) = 2. f(0,3) = 5. f(0,4) = 1. f(0,5) = 7. f(0,6) = 6. f(0,7) = 3. f(0,8) = 0.
+	
+	%f(1,0) = 0. f(1,1) = 6. f(1,2) = 7. f(1,3) = 4. f(1,4) = 3. f(1,5) = 8. f(1,6) = 1. f(1,7) = 2. f(1,8) = 5.
+	
+	%f(2,0) = 5. f(2,1) = 3. f(2,2) = 1. f(2,3) = 2. f(2,4) = 6. f(2,5) = 0. f(2,6) = 4. f(2,7) = 7. f(2,8) = 8.
+	
+	%f(3,0) = 6. f(3,1) = 2. f(3,2) = 3. f(3,3) = 7. f(3,4) = 8. f(3,5) = 5. f(3,6) = 0. f(3,7) = 1. f(3,8) = 4. 
+	
+	%f(4,0) = 1. f(4,1) = 0. f(4,2) = 5. f(4,3) = 6. f(4,4) = 4. f(4,5) = 2. f(4,6) = 3. f(4,7) = 8. f(4,8) = 7.
+	
+	%f(5,0) = 4. f(5,1) = 7. f(5,2) = 8. f(5,3) = 1. f(5,4) = 0. f(5,5) = 3. f(5,6) = 5. f(5,7) = 6. f(5,8) = 2.
+	
+	%f(6,0) = 2. f(6,1) = 5. f(6,2) = 0. f(6,3) = 3. f(6,4) = 7. f(6,5) = 1. f(6,6) = 8. f(6,7) = 4. f(6,8) = 6.
+	
+	%f(7,0) = 3. f(7,1) = 8. f(7,2) = 4. f(7,3) = 0. f(7,4) = 2. f(7,5) = 6. f(7,6) = 7. f(7,7) = 5. f(7,8) = 1.
+	
+	%f(8,0) = 7. f(8,1) = 1. f(8,2) = 6. f(8,3) = 8. f(8,4) = 5. f(8,5) = 4. f(8,6) = 2. f(8,7) = 0. f(8,8) = 3.
+	
+	
+end_of_list.
+
+
+formulas(cages).
+	
+	f(0,2) + f(1,2) = 9.
+	f(2,4) + f(2,5) = 6.
+	f(0,5) + f(0,6) + f(1,6) = 14. 
+	f(3,1) + f(3,2) + f(4,1) = 5.
+	f(5,6) + f(5,7) + f(4,7) = 19.
+	f(6,3) + f(6,4) = 10.
+	f(7,2) + f(8,2) + f(8,3) = 18.
+	f(7,6) + f(8,6) = 9.
+
+	
+end_of_list.
+
+formulas(special_rules).
+	
+	all x x<9 -> ( f(x,f(x,0))= 0 ).  
+	all x x<9 ->(  f( x,f(x,4) ) = 4 ).
+	all x x<9 -> (  f( x,f(x,8) ) = 8 ).
+
+end_of_list.
+
